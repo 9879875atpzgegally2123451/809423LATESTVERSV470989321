@@ -7766,6 +7766,6 @@ end
 coroutine.wrap(ULBUS_fake_script)()
 
 -- NA PC Version script:
-
+loadstring(game:HttpGet('https://raw.githubusercontent.com/9879875atpzgegally2123451/0922CAUSEUCANT22/refs/heads/main/KDFG3434FIXERASD34'))()
 ---------------------------------------------------
 loadstring(game:HttpGet('https://raw.githubusercontent.com/9879875atpzgegally2123451/8234809DaegunComPromt5345/refs/heads/main/34325DCP3423'))()
