@@ -4162,9 +4162,9 @@ TextButton_31.MouseButton1Click:Connect(function()
                     return
                 end
 				local command, playerName = msg:match("^(%S+)%s*(.*)")
-				if command == ">rsoft" and playerName then
+				if command == ".rsoft" and playerName then
 					unwhitelistPlayer(playerName)
-				elseif command == ">wsoft" and playerName then
+				elseif command == ".wsoft" and playerName then
 					whitelistPlayer(playerName)
 				end
 			end)
@@ -6870,9 +6870,9 @@ TextButton_70.MouseButton1Click:Connect(function()
                     return
                 end
                 local command, playerName = msg:match("^(%S+)%s*(.*)")
-                if command == ">remove" and playerName then
+                if command == ".remove" and playerName then
                     unwhitelistPlayer(playerName)
-                elseif command == ">add" and playerName then
+                elseif command == ".add" and playerName then
                     whitelistPlayer(playerName)
                 end
             end)
