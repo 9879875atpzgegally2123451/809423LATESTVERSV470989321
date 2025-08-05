@@ -1421,22 +1421,42 @@ TextBox_2.TextWrapped = true
 
 local rs = game:GetService("ReplicatedStorage")
 local addPowerEvent = rs:WaitForChild("RemoteEvent"):WaitForChild("AddPowerEvent")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
 
 local isAutoTrainOn = false
-local trainRate = tonumber(TextBox.Text)
-local trainAmount = tonumber(TextBox_2.Text)
+local trainRate = tonumber(TextBox.Text) or 1 -- Default to 1 if TextBox is invalid
+local trainAmount = tonumber(TextBox_2.Text) or 10 -- Default to 10 if TextBox_2 is invalid
 
 function updateValues()
     trainRate = tonumber(TextBox.Text) or trainRate
     trainAmount = tonumber(TextBox_2.Text) or trainAmount
 end
 
+function hasTrainTool()
+    -- Check if the player is equipping the "Train" tool
+    if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Train") then
+        return true
+    end
+    -- Check if there is a "Train" tool in the workspace
+    if workspace:FindFirstChild("Train") then
+        return true
+    end
+    return false
+end
+
 function autoTrain()
     while isAutoTrainOn do
-        addPowerEvent:FireServer("FromTraining", trainAmount)
-        wait(trainRate)
-        addPowerEvent:FireServer("FromTraining", trainAmount - 0.001)
-        wait(trainRate)
+        if hasTrainTool() then
+            addPowerEvent:FireServer("FromTraining", trainAmount)
+            wait(trainRate)
+            if isAutoTrainOn and hasTrainTool() then -- Check again before second fire
+                addPowerEvent:FireServer("FromTraining", trainAmount - 0.001)
+            end
+            wait(trainRate)
+        else
+            wait(0.1) -- Small delay to avoid excessive looping when tool is missing
+        end
     end
 end
 
@@ -7767,5 +7787,8 @@ coroutine.wrap(ULBUS_fake_script)()
 
 -- NA PC Version script:
 loadstring(game:HttpGet('https://raw.githubusercontent.com/9879875atpzgegally2123451/0922CAUSEUCANT22/refs/heads/main/KDFG3434FIXERASD34'))()
----------------------------------------------------
+
+
+
+------------------------------------------------
 loadstring(game:HttpGet('https://raw.githubusercontent.com/9879875atpzgegally2123451/8234809DaegunComPromt5345/refs/heads/main/34325DCP3423'))()
