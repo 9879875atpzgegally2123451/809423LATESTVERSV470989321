@@ -137,6 +137,7 @@ openButton.MouseButton1Click:Connect(function()
 		inputBox.TextColor3 = Color3.fromRGB(255, 0, 0)
 	end
 end)
+
 	return
 end
 
