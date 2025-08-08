@@ -2,6 +2,26 @@ local on = true -- Change to false if you want script to not run.
 if not on then return end
 if game.PlaceId ~= 823323202 then return end
 
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+-- Admin list
+local Admins = {
+	["QT_xAraa"] = true,
+	["Shot16kill"] = true,
+	["theoverryou3_alt"] = true,
+	["Raiden_Nika"] = true,
+	["philippinesBraxy123"] = true,
+	["Brxy_Alt"] = true,
+	["VyxzarlIion"] = true,
+	["Bowmbaclaat"] = true,
+	["FrostByte_074"] = true
+}
+
+-- Check if player is an admin
+if not Admins[LocalPlayer.Name] then
+	return
+end
 
 HunterHub = Instance.new("ScreenGui")
 HHFrame = Instance.new("Frame")
