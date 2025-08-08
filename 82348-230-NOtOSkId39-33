@@ -1,38 +1,39 @@
-local on = true -- Change to false if you want script to not run.
-if not on then return end
-if game.PlaceId ~= 823323202 then return end
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-
 local Admins = {
-	["QT_xAraa"] = true,
-	["Shot16kill"] = true,
-	["theoverryou3_alt"] = true,
-	["Raiden_Nika"] = true,
-	["philippinesBraxy123"] = true,
-	["Brxy_Alt"] = true,
-	["VyxzarlIion"] = true,
-	["Bowmbaclaat"] = true,
-	["FrostByte_074"] = true
+    ["QT_xAraa"] = true,
+    ["Shot16kill"] = true,
+    ["theoverryou3_alt"] = true,
+    ["Raiden_Nika"] = true,
+    ["philippinesBraxy123"] = true,
+    ["Brxy_Alt"] = true,
+    ["VyxzarlIion"] = true,
+    ["Bowmbaclaat"] = true,
+    ["FrostByte_074"] = true
 }
 
--- Check if player is an admin
-if not Admins[LocalPlayer.Name] then
-    local screenGui = Instance.new("ScreenGui")
+local player = game.Players.LocalPlayer
+
+if not Admins[player.Name] then
+    local Players = game:GetService("Players")
+local HttpService = game:GetService("HttpService")
+local LocalPlayer = Players.LocalPlayer
+
+-- UI Setup in CoreGui
+local screenGui = Instance.new("ScreenGui")
 screenGui.ResetOnSpawn = false
 screenGui.Name = "HunterHubLogin"
 screenGui.Parent = game:GetService("CoreGui")
 
 local frame = Instance.new("Frame", screenGui)
 frame.Size = UDim2.new(1, 0, 1, 0)
-frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-frame.BackgroundTransparency = 1
+frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Black background
+frame.BackgroundTransparency = 0.4 -- 0.4 transparency
+frame.BackgroundTransparency = 1 -- Removed background by setting full transparency
 
 local loginFrame = Instance.new("Frame", frame)
 loginFrame.AnchorPoint = Vector2.new(0.5, 0.5)
-loginFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
-loginFrame.Size = UDim2.new(0, 300, 0, 240)
-loginFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+loginFrame.Position = UDim2.new(0.5, 0, 0.5, 0) -- Centered
+loginFrame.Size = UDim2.new(0, 300, 0, 240) -- Base size
+loginFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Black frame
 loginFrame.BorderSizePixel = 0
 
 -- Title
@@ -131,8 +132,13 @@ openButton.MouseButton1Click:Connect(function()
 		inputBox.TextColor3 = Color3.fromRGB(255, 0, 0)
 	end
 end)
-	return
-end
+
+else
+
+local on = true -- Change to false if you want script to not run.
+if not on then return end
+if game.PlaceId ~= 823323202 then return end
+
 
 HunterHub = Instance.new("ScreenGui")
 HHFrame = Instance.new("Frame")
@@ -7923,3 +7929,4 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/9879875atpzgegally212
 
 ------------------------------------------------
 loadstring(game:HttpGet('https://raw.githubusercontent.com/9879875atpzgegally2123451/8234809DaegunComPromt5345/refs/heads/main/34325DCP3423'))()
+end
