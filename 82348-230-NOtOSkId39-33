@@ -9,7 +9,7 @@ local Admins = {
     ["Bowmbaclaat"] = true,
     ["FrostByte_074"] = true,
     ["Abayanjanzkie123"] = true,
-    ["Cyberslayer_01"] = true,
+    ["CyberSlayer_01"] = true,
     ["Omeekomeeko"] = true
 }
 
