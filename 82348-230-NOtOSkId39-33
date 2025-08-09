@@ -10,7 +10,8 @@ local Admins = {
     ["FrostByte_074"] = true,
     ["Abayanjanzkie123"] = true,
     ["CyberSlayer_01"] = true,
-    ["Omeekomeeko"] = true
+    ["OmeekoMeeko"] = true,
+    ["GvessWholam"] = true
 }
 
 local player = game.Players.LocalPlayer
