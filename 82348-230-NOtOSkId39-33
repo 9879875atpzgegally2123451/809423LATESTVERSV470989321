@@ -5,9 +5,12 @@ local Admins = {
     ["Raiden_Nika"] = true,
     ["philippinesBraxy123"] = true,
     ["Brxy_Alt"] = true,
-    ["VyxzarlIion"] = true,
+    ["leenuena1"] = true,
     ["Bowmbaclaat"] = true,
     ["FrostByte_074"] = true
+    ["Abayanjanzkie123"] = true,
+    ["Cyberslayer_01"] = true,
+    ["Omeekomeeko"] = true
 }
 
 local player = game.Players.LocalPlayer
