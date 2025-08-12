@@ -5,7 +5,6 @@ local on = true -- Change to false if you want script to not run.
 if not on then return end
 if game.PlaceId ~= 823323202 then return end
 
-if game:GetService("Players").LocalPlayer.Name ~= "Naliza27" then return end
 
 
 local ShadowHub = Instance.new("ScreenGui")
@@ -1386,7 +1385,6 @@ Players.PlayerRemoving:Connect(function(removedPlr)
 end)
 
 local Players = game:GetService("Players")
-local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local TextChatService = game:GetService("TextChatService")
 
@@ -1752,7 +1750,7 @@ Workspace.ChildAdded:Connect(function(child)
 	if child.Name == "ThrownKunai" then
 		local creatorObj = child:WaitForChild("creator", 2)
 		if creatorObj and creatorObj.Value == LocalPlayer then
-			for _, targetPlr in ipairs(getValidTargets()) do
+			for _, targetPlr in ipairs(getValidTargets()) do 
 				local head = targetPlr.Character and targetPlr.Character:FindFirstChild("Head")
 				if head then
 					local part = child:IsA("BasePart") and child or child:FindFirstChildWhichIsA("BasePart")
@@ -1823,4 +1821,3 @@ tc.TextChannels.RBXGeneral.OnIncomingMessage = function(msg)
         serverhop()
     end
 end
-
