@@ -1386,71 +1386,74 @@ Players.PlayerRemoving:Connect(function(removedPlr)
 end)
 
 local Players = game:GetService("Players")
+local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local TextChatService = game:GetService("TextChatService")
 
 local LocalPlayer = Players.LocalPlayer
-local targets = {}
+local targetPlayer = nil
 local loopEnabled = false
 local followDistance = 5
 
--- Add target by name/display name
-local function addTarget(name, distance)
-	targets = {} -- clear previous targets
-	followDistance = tonumber(distance) or 5
-
-	if name:lower() == "all" then
-		for _, plr in ipairs(Players:GetPlayers()) do
-			if plr ~= LocalPlayer then
-				table.insert(targets, plr)
-			end
-		end
-	else
-		for _, plr in ipairs(Players:GetPlayers()) do
-			if plr ~= LocalPlayer then
-				local uname = plr.Name:lower()
-				local dname = plr.DisplayName:lower()
-				if uname:sub(1, #name) == name:lower() or dname:sub(1, #name) == name:lower() then
-					table.insert(targets, plr)
-				end
+-- Find player by partial username/display name
+local function findPlayer(name)
+	name = name:lower()
+	for _, plr in ipairs(Players:GetPlayers()) do
+		if plr ~= LocalPlayer then
+			local uname = plr.Name:lower()
+			local dname = plr.DisplayName:lower()
+			if uname:sub(1, #name) == name or dname:sub(1, #name) == name then
+				return plr
 			end
 		end
 	end
-
-	if #targets > 0 then
-		loopEnabled = true
-	end
+	return nil
 end
 
-local function clearTargets()
-	loopEnabled = false
-	targets = {}
-end
+-- Process commands
+local function handleCommand(msg)
+	if not msg then return end
+	msg = msg:lower()
 
-TextChatService.OnIncomingMessage = function(message)
-	local text = message.Text and message.Text:lower()
-	if not text or not message.TextSource or message.TextSource.UserId ~= LocalPlayer.UserId then return end
-
-	if text:sub(1, 10) == ";loopbring" then
-		local args = message.Text:split(" ")
+	if msg:sub(1, 5) == ".loop" then
+		local args = msg:split(" ")
 		if #args >= 3 then
-			addTarget(args[2], args[3])
+			local plr = findPlayer(args[2])
+			if plr then
+				targetPlayer = plr
+				followDistance = tonumber(args[3]) or 5
+				loopEnabled = true
+			end
 		end
-	elseif text:sub(1, 12) == ";unloopbring" then
-		clearTargets()
+
+	elseif msg:sub(1, 7) == ".unloop" then
+		loopEnabled = false
+		targetPlayer = nil
 	end
 end
 
-RunService.RenderStepped:Connect(function()
-	if loopEnabled and #targets > 0 then
-		local myHRP = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
-		if myHRP then
-			for _, plr in ipairs(targets) do
-				if plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
-					plr.Character.HumanoidRootPart.CFrame = myHRP.CFrame * CFrame.new(0, 0, -followDistance)
-				end
+-- Support both new and old chat systems
+pcall(function()
+	if TextChatService.ChatVersion == Enum.ChatVersion.TextChatService then
+		TextChatService.MessageReceived:Connect(function(message)
+			if message.TextSource and message.TextSource.UserId == LocalPlayer.UserId then
+				handleCommand(message.Text)
 			end
-		end
+		end)
+	else
+		LocalPlayer.Chatted:Connect(function(msg)
+			handleCommand(msg)
+		end)
+	end
+end)
+
+-- Loop bring
+RunService.RenderStepped:Connect(function()
+	if loopEnabled and targetPlayer
+	and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart")
+	and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+		targetPlayer.Character.HumanoidRootPart.CFrame =
+			LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -followDistance)
 	end
 end)
 
