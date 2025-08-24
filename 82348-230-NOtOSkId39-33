@@ -3421,12 +3421,6 @@ local function disableShurikens(targetPlayer)
     if targetPlayer and targetPlayer ~= localPlayer then
         local shurikens = {}
 
-        for _, item in ipairs(targetPlayer.Backpack:GetChildren()) do
-            if item.Name == "Shuriken" then
-                table.insert(shurikens, item)
-            end
-        end
-
         local character = targetPlayer.Character
         if character then
             for _, item in ipairs(character:GetChildren()) do
@@ -3446,7 +3440,7 @@ end
 
 local function onPlayerRespawn(targetPlayer)
     targetPlayer.CharacterAdded:Connect(function()
-        wait(1)
+        wait(100)
         disableShurikens(targetPlayer)
     end)
 end
