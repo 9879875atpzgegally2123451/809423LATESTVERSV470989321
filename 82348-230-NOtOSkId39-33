@@ -3417,38 +3417,15 @@ local selectedPlayer = nil
 local playerService = game:GetService("Players")
 local localPlayer = playerService.LocalPlayer
 
-local function disableShurikens(targetPlayer)
-    if targetPlayer and targetPlayer ~= localPlayer then
-        local shurikens = {}
-
-        local character = targetPlayer.Character
-        if character then
-            for _, item in ipairs(character:GetChildren()) do
-                if item.Name == "Shuriken" then
-                    table.insert(shurikens, item)
-                end
-            end
-        end
-
-        for _, shuriken in ipairs(shurikens) do
-            if shuriken:FindFirstChild("HitEvent") then
-                shuriken.HitEvent:FireServer()
-            end
-        end
-    end
-end
-
 local function onPlayerRespawn(targetPlayer)
     targetPlayer.CharacterAdded:Connect(function()
         wait(100)
-        disableShurikens(targetPlayer)
     end)
 end
 
 local function initializeDisabling(targetPlayerName)
     local targetPlayer = playerService:FindFirstChild(targetPlayerName)
     if targetPlayer and targetPlayer ~= localPlayer then
-        disableShurikens(targetPlayer)
         onPlayerRespawn(targetPlayer)
     end
 end
